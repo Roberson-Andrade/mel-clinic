@@ -2,12 +2,12 @@
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence           http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
   <persistence-unit name="MelPetshopPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>entidades.Profissional</class>
     <class>entidades.Pessoa</class>
+    <class>entidades.Especie</class>
     <class>entidades.Animal</class>
+    <class>entidades.Profissional</class>
     <class>entidades.Procedimento</class>
     <class>entidades.Agendamento</class>
-    <class>entidades.Especie</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/db?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
