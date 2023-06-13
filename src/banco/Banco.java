@@ -42,7 +42,7 @@ public class Banco {
         
         try {
             Statement sessao = conexao.createStatement();
-            sessao.executeUpdate("CREATE DATABASE " + this.database + ";");  
+            //sessao.executeUpdate("CREATE DATABASE " + this.database + ";");  
             sessao.executeUpdate("USE db;");  
             
             for(String sql : sqls) {
@@ -60,7 +60,7 @@ public class Banco {
         ArrayList<String> sqls = new ArrayList<String>();
         
         try {
-            File myObj = new File("src/sql/tabelas.txt");
+            File myObj = new File("src/banco/tabelas.txt");
             Scanner myReader = new Scanner(myObj);
             
           while (myReader.hasNextLine()) {
