@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -25,7 +26,7 @@ public class TelaPrincipal extends Application {
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader carregador = new FXMLLoader();
         String tela = "./telas/TelaPrincipal.fxml";
-        AnchorPane root = (AnchorPane) carregador.load(getClass().getClassLoader().getResource(tela));
+        BorderPane root = (BorderPane) carregador.load(getClass().getClassLoader().getResource(tela));
         
         Scene scene = new Scene(root);
         

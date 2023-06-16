@@ -4,9 +4,16 @@
  */
 package controlesTelas;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 /**
  * FXML Controller class
@@ -15,6 +22,11 @@ import javafx.fxml.Initializable;
  */
 public class TelaPrincipalController implements Initializable {
 
+    @FXML
+    private Button botaoAgenda;
+    @FXML
+    private BorderPane container;
+
     /**
      * Initializes the controller class.
      */
@@ -22,5 +34,12 @@ public class TelaPrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void onClickBotaoAgenda(ActionEvent event) throws IOException {
+        AnchorPane agendaView = FXMLLoader.load(getClass().getResource("/telas/TelaAgenda.fxml"));
+        
+        container.setCenter(agendaView);
+    }
     
 }
