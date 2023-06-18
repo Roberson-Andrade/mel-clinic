@@ -26,6 +26,8 @@ public class TelaPrincipalController implements Initializable {
     private Button botaoAgenda;
     @FXML
     private BorderPane container;
+    @FXML
+    private Button botaoClientes;
 
     /**
      * Initializes the controller class.
@@ -33,6 +35,7 @@ public class TelaPrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        System.out.println("aaaaaaaaaaaaa");
     }    
 
     @FXML
@@ -40,6 +43,13 @@ public class TelaPrincipalController implements Initializable {
         AnchorPane agendaView = FXMLLoader.load(getClass().getResource("/telas/TelaAgenda.fxml"));
         
         container.setCenter(agendaView);
+    }
+
+    @FXML
+    private void onClickBotaoClientes(ActionEvent event) throws IOException {
+        AnchorPane clientesView = FXMLLoader.load(getClass().getResource("/telas/TelaClientes.fxml"));
+        
+        container.setCenter(clientesView);
     }
     
 }
