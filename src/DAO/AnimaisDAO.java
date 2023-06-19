@@ -19,7 +19,7 @@ public class AnimaisDAO {
     private final EntityManagerFactory emf;
     
     public AnimaisDAO() {
-        emf = Persistence.createEntityManagerFactory("MelPetshopPU");
+        emf = Persistence.createEntityManagerFactory("MelClinicPU");
         objetoJPA = new AnimalJpaController(emf);
     }
     

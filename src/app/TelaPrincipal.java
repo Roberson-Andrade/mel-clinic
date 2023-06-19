@@ -30,7 +30,7 @@ public class TelaPrincipal extends Application {
         
         Scene scene = new Scene(root);
         
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Mel clinic");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

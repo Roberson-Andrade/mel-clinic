@@ -19,7 +19,7 @@ public class PessoaDAO {
        private final EntityManagerFactory emf;
 
     public PessoaDAO() {
-        this.emf = Persistence.createEntityManagerFactory("MelPetshopPU");
+        this.emf = Persistence.createEntityManagerFactory("MelClinicPU");
         this.objetoJPA = new PessoaJpaController(emf);
     }
     

@@ -32,7 +32,7 @@ public class TelaClientesController implements Initializable {
     
     private ObservableList pessoas;
     
-    final EntityManagerFactory emf = Persistence.createEntityManagerFactory("MelPetshopPU");
+    final EntityManagerFactory emf = Persistence.createEntityManagerFactory("MelClinicPU");
     final EntityManager em = emf.createEntityManager();
 
     public TelaClientesController() {
