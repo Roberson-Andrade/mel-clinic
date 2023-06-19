@@ -14,11 +14,10 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import jpaControles.exceptions.NonexistentEntityException;
-import jpaControles.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author roberson
+ * @author rober
  */
 public class EspecieJpaController implements Serializable {
 
@@ -31,18 +30,13 @@ public class EspecieJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Especie especie) throws PreexistingEntityException, Exception {
+    public void create(Especie especie) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(especie);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findEspecie(especie.getId()) != null) {
-                throw new PreexistingEntityException("Especie " + especie + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();

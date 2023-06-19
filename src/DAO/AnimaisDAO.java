@@ -6,6 +6,7 @@ package DAO;
 
 import entidades.Animal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import jpaControles.AnimalJpaController;
@@ -23,14 +24,20 @@ public class AnimaisDAO {
         objetoJPA = new AnimalJpaController(emf);
     }
     
-    public void add(Animal objet) throws Exception {
-        objetoJPA.create(objet);
+    public void add(Animal objeto) throws Exception {
+        objetoJPA.create(objeto);
     }
-
-        public static void main(String[] args) throws Exception {
-            AnimaisDAO cachorro = new AnimaisDAO();
-            Animal dog = new Animal(1,"jose", "pitbul", "macho", new Date());
-            cachorro.add(dog);
-        }
+    
+    public void delete(Integer id) throws Exception {
+         objetoJPA.destroy(id);
+    }
+    
+    public void update(Animal objeto) throws Exception {
+         objetoJPA.edit(objeto);
+    }
+    
+    public List<Animal> findAllPessoas() throws Exception {
+        return objetoJPA.findAnimalEntities();
+    } 
     
 }

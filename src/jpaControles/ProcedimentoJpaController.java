@@ -18,11 +18,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import jpaControles.exceptions.IllegalOrphanException;
 import jpaControles.exceptions.NonexistentEntityException;
-import jpaControles.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author roberson
+ * @author rober
  */
 public class ProcedimentoJpaController implements Serializable {
 
@@ -35,7 +34,7 @@ public class ProcedimentoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Procedimento procedimento) throws PreexistingEntityException, Exception {
+    public void create(Procedimento procedimento) {
         if (procedimento.getAgendamentoCollection() == null) {
             procedimento.setAgendamentoCollection(new ArrayList<Agendamento>());
         }
@@ -60,11 +59,6 @@ public class ProcedimentoJpaController implements Serializable {
                 }
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findProcedimento(procedimento.getId()) != null) {
-                throw new PreexistingEntityException("Procedimento " + procedimento + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();

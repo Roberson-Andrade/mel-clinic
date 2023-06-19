@@ -19,11 +19,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import jpaControles.exceptions.IllegalOrphanException;
 import jpaControles.exceptions.NonexistentEntityException;
-import jpaControles.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author roberson
+ * @author rober
  */
 public class AnimalJpaController implements Serializable {
 
@@ -36,7 +35,7 @@ public class AnimalJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Animal animal) throws PreexistingEntityException, Exception {
+    public void create(Animal animal) {
         if (animal.getAgendamentoCollection() == null) {
             animal.setAgendamentoCollection(new ArrayList<Agendamento>());
         }
@@ -70,11 +69,6 @@ public class AnimalJpaController implements Serializable {
                 }
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findAnimal(animal.getId()) != null) {
-                throw new PreexistingEntityException("Animal " + animal + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();

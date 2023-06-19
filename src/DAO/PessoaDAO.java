@@ -27,20 +27,15 @@ public class PessoaDAO {
         objetoJPA.create(objeto);
     }
     
+    public void delete(Integer id) throws Exception {
+         objetoJPA.destroy(id);
+    }
+    
+    public void update(Pessoa pessoa) throws Exception {
+         objetoJPA.edit(pessoa);
+    }
+    
     public List<Pessoa> findAllPessoas() throws Exception {
         return objetoJPA.findPessoaEntities();
-    }      
-    
-    public static void main(String[] args) {
-        Pessoa pessoa = new Pessoa(1, "Rogerso");
-        PessoaDAO pessoaDao = new PessoaDAO();
-
-        try {
-            pessoaDao.add(pessoa);
-            List<Pessoa> pessoas = pessoaDao.findAllPessoas();
-            System.out.println(pessoas);
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
+    }    
 }

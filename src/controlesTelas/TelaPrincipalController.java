@@ -4,6 +4,7 @@
  */
 package controlesTelas;
 
+import helpers.ScenePath;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,20 +35,18 @@ public class TelaPrincipalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        System.out.println("aaaaaaaaaaaaa");
     }    
 
     @FXML
     private void onClickBotaoAgenda(ActionEvent event) throws IOException {
-        AnchorPane agendaView = FXMLLoader.load(getClass().getResource("/telas/TelaAgenda.fxml"));
+        AnchorPane agendaView = FXMLLoader.load(getClass().getResource(ScenePath.AGENDA.getPath()));
         
         container.setCenter(agendaView);
     }
 
     @FXML
     private void onClickBotaoClientes(ActionEvent event) throws IOException {
-        AnchorPane clientesView = FXMLLoader.load(getClass().getResource("/telas/TelaClientes.fxml"));
+        AnchorPane clientesView = FXMLLoader.load(getClass().getResource(ScenePath.CLIENTES.getPath()));
         
         container.setCenter(clientesView);
     }

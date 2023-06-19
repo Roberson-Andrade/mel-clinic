@@ -18,11 +18,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import jpaControles.exceptions.IllegalOrphanException;
 import jpaControles.exceptions.NonexistentEntityException;
-import jpaControles.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author roberson
+ * @author rober
  */
 public class ProfissionalJpaController implements Serializable {
 
@@ -35,7 +34,7 @@ public class ProfissionalJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Profissional profissional) throws PreexistingEntityException, Exception {
+    public void create(Profissional profissional) {
         if (profissional.getAgendamentoCollection() == null) {
             profissional.setAgendamentoCollection(new ArrayList<Agendamento>());
         }
@@ -60,11 +59,6 @@ public class ProfissionalJpaController implements Serializable {
                 }
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findProfissional(profissional.getId()) != null) {
-                throw new PreexistingEntityException("Profissional " + profissional + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();

@@ -4,21 +4,27 @@
  */
 package controlesTelas;
 
+import DAO.PessoaDAO;
 import entidades.Pessoa;
+import helpers.ScenePath;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -31,50 +37,72 @@ public class TelaClientesController implements Initializable {
 
     
     private ObservableList pessoas;
+    final PessoaDAO pessoaDao = new PessoaDAO();
     
-    final EntityManagerFactory emf = Persistence.createEntityManagerFactory("MelClinicPU");
-    final EntityManager em = emf.createEntityManager();
+    @FXML
+    private Button novoCliente;
 
     public TelaClientesController() {
         System.out.println("TelaClientesController instantiated.");
     }
 
-    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        System.out.println("aaaaaaaaaaa");
         updateClientes(); //getting all clients
-        
+     
         setupTable(); //retrieving data from DB
     }    
     private void updateClientes() {
-        Query rq = em.createNamedQuery("Pessoa.findAll");
-        List results = rq.getResultList();
-        System.out.println("tamanho do resultados" + results.size()); //checar
-        if(pessoas == null) //checar se pessoas eh nulo para inicializar a lista de pessoas
-            pessoas = FXCollections.observableArrayList(results);
-        else { //caso contrario limpa para adicionar a nova lista atualizada
-            pessoas.clear();
-            pessoas.addAll(pessoas);
+        try {
+            List<Pessoa> results = pessoaDao.findAllPessoas();
+        
+            if(pessoas == null) //checar se pessoas eh nulo para inicializar a lista de pessoas
+                pessoas = FXCollections.observableArrayList(results);
+            else { //caso contrario limpa para adicionar a nova lista atualizada
+                pessoas.clear();
+                pessoas.addAll(pessoas);
+            }
+        } catch (Exception e) {
         }
+    }
+    
+    private TableColumn createTableColumn(String columnText,double minWidth, String propertyName) {
+        TableColumn column = new TableColumn<Pessoa,Integer>();
+        column.setText(columnText);
+        column.setMinWidth(minWidth);
+        column.setCellValueFactory(new PropertyValueFactory(propertyName));
+        
+        return column;
     }
 
     private void setupTable() {
-        TableColumn ClienteID = new TableColumn<Pessoa,Integer>();
-        ClienteID.setText("id");
-        ClienteID.setMinWidth(100);
-        ClienteID.setCellValueFactory(new PropertyValueFactory("id"));//o id da classe da entidade
-        TableColumn ClienteNome = new TableColumn<Pessoa,String>();
-        ClienteNome.setMinWidth(100);
-        ClienteNome.setText("abluble");
-        ClienteNome.setCellValueFactory(new PropertyValueFactory("nome"));
+        TableColumn ClienteID = createTableColumn("id", 30, "id");
+        TableColumn ClienteNome = createTableColumn("Nome", 100, "nome");
+        TableColumn ClienteTelefone = createTableColumn("Telefone", 100, "foneContato");
+        TableColumn ClienteEndereco = createTableColumn("Endereço", 100, "endereco");
+        TableColumn ClienteCEP = createTableColumn("CEP", 100, "cep");
+        TableColumn ClienteCidade = createTableColumn("Cidade", 100, "cidade");
+        TableColumn ClienteUf = createTableColumn("UF", 30, "uf");
         
-        TableViewClientes.getColumns().addAll(ClienteID, ClienteNome);
+        
+        TableViewClientes.getColumns().addAll(ClienteID, ClienteNome, ClienteTelefone,  ClienteEndereco, ClienteCEP, ClienteCidade, ClienteUf);
         TableViewClientes.setItems(pessoas);
+    }
+
+    @FXML
+    private void onClick(ActionEvent event) throws IOException {
+        AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource(ScenePath.NOVO_CLIENTE.getPath()));
+        
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        
+        stage.setTitle("Novo cliente");
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
     
 }

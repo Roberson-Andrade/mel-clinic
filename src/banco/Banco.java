@@ -42,7 +42,7 @@ public class Banco {
         
         try {
             Statement sessao = conexao.createStatement();
-            //sessao.executeUpdate("CREATE DATABASE " + this.database + ";");  
+//            sessao.executeUpdate("CREATE DATABASE " + this.database + ";");  
             sessao.executeUpdate("USE db;");  
             
             for(String sql : sqls) {

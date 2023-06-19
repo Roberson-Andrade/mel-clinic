@@ -17,11 +17,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import jpaControles.exceptions.NonexistentEntityException;
-import jpaControles.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author roberson
+ * @author rober
  */
 public class AgendamentoJpaController implements Serializable {
 
@@ -34,7 +33,7 @@ public class AgendamentoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Agendamento agendamento) throws PreexistingEntityException, Exception {
+    public void create(Agendamento agendamento) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -68,11 +67,6 @@ public class AgendamentoJpaController implements Serializable {
                 profissionalId = em.merge(profissionalId);
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findAgendamento(agendamento.getId()) != null) {
-                throw new PreexistingEntityException("Agendamento " + agendamento + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();

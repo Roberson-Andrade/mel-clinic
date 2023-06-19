@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlesTelas.TelaNovoClienteController">
+   <children>
+      <GridPane hgap="8.0" layoutX="78.0" layoutY="94.0" prefHeight="212.0" prefWidth="408.0" vgap="8.0" AnchorPane.bottomAnchor="94.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="94.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3">
+               <children>
+                  <Label text="Nome" />
+                  <TextField fx:id="textName" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.columnSpan="3">
+               <children>
+                  <Label text="Telefone" />
+                  <TextField fx:id="textCellphone" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+               <children>
+                  <Label text="CPF" />
+                  <TextField fx:id="textCpf" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
+               <children>
+                  <Label text="RG" />
+                  <TextField fx:id="textRg" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
+               <children>
+                  <Label text="Endereço" />
+                  <TextField fx:id="textAddress" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+               <children>
+                  <Label text="Cidade" />
+                  <TextField fx:id="textCity" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <children>
+                  <Label text="UF" />
+                  <TextField fx:id="textUf" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
+      <Text layoutX="21.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Novo cliente" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Button fx:id="cancelButton" alignment="CENTER" layoutX="439.0" layoutY="347.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Cancelar" AnchorPane.rightAnchor="70.0" />
+      <Button fx:id="createButton" layoutX="509.0" layoutY="347.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSubmit" text="Criar" AnchorPane.rightAnchor="20.0" />
+   </children>
+</AnchorPane>
