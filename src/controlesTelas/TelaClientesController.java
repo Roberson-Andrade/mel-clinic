@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -65,6 +66,7 @@ public class TelaClientesController implements Initializable {
                 pessoas.clear();
                 pessoas.addAll(pessoas);
             }
+            
         } catch (Exception e) {
         }
     }
@@ -77,6 +79,46 @@ public class TelaClientesController implements Initializable {
         
         return column;
     }
+    
+    private TableColumn<Pessoa, Void> createButtonColumn() {
+        TableColumn<Pessoa, Void> buttonColumn = new TableColumn<>("Action");
+
+        buttonColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button button = new Button("Click");
+
+            {
+                button.setOnAction(event -> {
+                    Pessoa pessoa = getTableRow().getItem();
+                    
+                    if (pessoa != null) {
+                        try {
+                            pessoaDao.delete(pessoa.getId());
+                            
+                            List<Pessoa> results = pessoaDao.findAllPessoas();
+                            
+                            pessoas.clear();
+                            pessoas.addAll(results);
+                        } catch (Exception e) {
+                            System.out.print(e.getMessage());
+                        }
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(button);
+                }
+            }
+        });
+
+        return buttonColumn;
+    }   
 
     private void setupTable() {
         TableColumn ClienteID = createTableColumn("id", 30, "id");
@@ -86,15 +128,22 @@ public class TelaClientesController implements Initializable {
         TableColumn ClienteCEP = createTableColumn("CEP", 100, "cep");
         TableColumn ClienteCidade = createTableColumn("Cidade", 100, "cidade");
         TableColumn ClienteUf = createTableColumn("UF", 30, "uf");
+        TableColumn<Pessoa, Void> buttonColumn = createButtonColumn();
         
         
-        TableViewClientes.getColumns().addAll(ClienteID, ClienteNome, ClienteTelefone,  ClienteEndereco, ClienteCEP, ClienteCidade, ClienteUf);
+        TableViewClientes.getColumns().addAll(ClienteID, ClienteNome, ClienteTelefone,  ClienteEndereco, ClienteCEP, ClienteCidade, ClienteUf, buttonColumn);
         TableViewClientes.setItems(pessoas);
     }
 
     @FXML
     private void onClick(ActionEvent event) throws IOException {
-        AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource(ScenePath.NOVO_CLIENTE.getPath()));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(ScenePath.NOVO_CLIENTE.getPath()));
+        AnchorPane root = (AnchorPane) loader.load();
+        
+        // Get the controller of the new stage
+        TelaNovoClienteController novoClienteController = loader.getController();
+        // Pass the observable list to the controller
+        novoClienteController.setPessoas(pessoas);
         
         Stage stage = new Stage();
         Scene scene = new Scene(root);
