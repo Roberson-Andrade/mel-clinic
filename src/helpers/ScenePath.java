@@ -11,8 +11,11 @@ package helpers;
 public enum ScenePath {
 
     AGENDA("/telas/TelaAgenda.fxml"),
+    ANIMAIS("/telas/TelaAnimais.fxml"),
+    NOVO_ANIMAL("/telas/TelaNovoAnimal.fxml"),
     CLIENTES("/telas/TelaClientes.fxml"),
     NOVO_CLIENTE("/telas/TelaNovoCliente.fxml");
+    
 
     private final String path;
 

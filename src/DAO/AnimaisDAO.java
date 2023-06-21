@@ -36,7 +36,7 @@ public class AnimaisDAO {
          objetoJPA.edit(objeto);
     }
     
-    public List<Animal> findAllPessoas() throws Exception {
+    public List<Animal> findAllAnimais() throws Exception {
         return objetoJPA.findAnimalEntities();
     } 
     
