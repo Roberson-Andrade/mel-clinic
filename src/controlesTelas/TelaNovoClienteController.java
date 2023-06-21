@@ -47,6 +47,8 @@ public class TelaNovoClienteController implements Initializable {
     private TextField textRg;
     @FXML
     private Label errorLabel;
+    @FXML
+    private TextField textCEP;
     
     ObservableList<Pessoa> pessoas;
 
@@ -90,6 +92,9 @@ public class TelaNovoClienteController implements Initializable {
         String city = textCity.getText();
         String uf = textUf.getText();
         String cellphone = textCellphone.getText();
+        String rg = textRg.getText();
+        Integer cep = Integer.valueOf(textCEP.getText());
+        String cpf = textCpf.getText();
         
         Pessoa novaPessoa = new Pessoa();
         novaPessoa.setNome(name);
@@ -97,6 +102,12 @@ public class TelaNovoClienteController implements Initializable {
         novaPessoa.setCidade(city);
         novaPessoa.setUf(uf);
         novaPessoa.setFoneContato(cellphone);
+        novaPessoa.setCep(cep);
+        //pessoa n tem cpf nem rg
+        //
+        //
+        //
+        //
         
         pessoaDao.add(novaPessoa);
         
