@@ -31,7 +31,7 @@
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3">
                <children>
                   <Label text="Nome" />
-                  <TextField fx:id="textName" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+                  <TextField fx:id="textNome" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.columnSpan="3">
@@ -54,8 +54,8 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <children>
-                  <Label text="Endereço" />
-                  <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+                  <Label text="Nome do Dono" />
+                  <TextField fx:id="textDono" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="2">

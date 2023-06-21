@@ -152,7 +152,7 @@ public class Pessoa implements Serializable {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
         return "entidades.Pessoa[ id=" + id + " ]";
