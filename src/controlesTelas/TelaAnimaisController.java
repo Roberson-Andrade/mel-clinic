@@ -7,6 +7,7 @@ package controlesTelas;
 import DAO.AnimaisDAO;
 import entidades.Animal;
 import entidades.Pessoa;
+import helpers.GenericCreateTableButton;
 import helpers.ScenePath;
 import java.io.IOException;
 import java.net.URL;
@@ -102,41 +103,16 @@ public class TelaAnimaisController implements Initializable {
         return column;
     }
 
-    private TableColumn<Animal, Void> createButtonColumn() {
-        TableColumn<Animal, Void> buttonColumn = new TableColumn<>("Action");
-
-        buttonColumn.setCellFactory(param -> new TableCell<>() {
-            private final Button button = new Button("Click");
-
-            {
-                button.setOnAction(event -> {
-                    Animal animal = getTableRow().getItem();
-
-                    if (animal != null) {
-                        try {
-                            animalDao.delete(animal.getId());
-
-                            updateAnimais();
-                        } catch (Exception e) {
-                            System.out.print(e.getMessage());
-                        }
-                    }
-                });
+    private TableColumn<Animal, Void> createAnimalButtonColumn() {
+        return GenericCreateTableButton.createButtonColumn(animal -> {
+            try {
+                animalDao.delete(animal.getId());
+                updateAnimais();
+            } catch (Exception e) {
+                System.out.print(e.getMessage());
             }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(button);
-                }
-            }
+            return null;
         });
-
-        return buttonColumn;
     }
 
     private void setupTable() {
@@ -146,7 +122,7 @@ public class TelaAnimaisController implements Initializable {
         TableColumn<Animal, String> AnimalSexo = createTableColumn("Sexo", 100, "sexo");
         TableColumn<Animal, Date> AnimalNascimento = createTableColumn("Nascimento", 100, "nascimento");
         //ali funciona tanto LocalDate quanto String
-        TableColumn<Animal, Void> buttonColumn = createButtonColumn();
+        TableColumn<Animal, Void> buttonColumn = createAnimalButtonColumn();
         
         TableViewAnimais.getColumns().addAll(AnimalNome, AnimalRaca, AnimalDono, AnimalSexo, AnimalNascimento, buttonColumn);
         TableViewAnimais.setItems(animais);

@@ -6,6 +6,7 @@ package controlesTelas;
 
 import DAO.PessoaDAO;
 import entidades.Pessoa;
+import helpers.GenericCreateTableButton;
 import helpers.ScenePath;
 import java.io.IOException;
 import java.net.URL;
@@ -82,42 +83,17 @@ public class TelaClientesController implements Initializable {
         return column;
     }
     
-    private TableColumn<Pessoa, Void> createButtonColumn() {
-        TableColumn<Pessoa, Void> buttonColumn = new TableColumn<>("Action");
-
-        buttonColumn.setCellFactory(param -> new TableCell<>() {
-            private final Button button = new Button("Click");
-
-            {
-                button.setOnAction(event -> {
-                    Pessoa pessoa = getTableRow().getItem();
-                    
-                    if (pessoa != null) {
-                        try {
-                            pessoaDao.delete(pessoa.getId());
-                                                        
-                            updateClientes();
-                        } catch (Exception e) {
-                            System.out.print(e.getMessage());
-                        }
-                    }
-                });
+        private TableColumn<Pessoa, Void> createAnimalButtonColumn() {
+        return GenericCreateTableButton.createButtonColumn(animal -> {
+            try {
+                pessoaDao.delete(animal.getId());
+                updateClientes();
+            } catch (Exception e) {
+                System.out.print(e.getMessage());
             }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(button);
-                }
-            }
+            return null;
         });
-
-        return buttonColumn;
-    }   
+    }
 
     private void setupTable() {
         TableColumn ClienteID = createTableColumn("id", 30, "id");
@@ -127,7 +103,7 @@ public class TelaClientesController implements Initializable {
         TableColumn ClienteCEP = createTableColumn("CEP", 100, "cep");
         TableColumn ClienteCidade = createTableColumn("Cidade", 100, "cidade");
         TableColumn ClienteUf = createTableColumn("UF", 30, "uf");
-        TableColumn<Pessoa, Void> buttonColumn = createButtonColumn();
+        TableColumn<Pessoa, Void> buttonColumn = createAnimalButtonColumn();
         
         
         TableViewClientes.getColumns().addAll(ClienteID, ClienteNome, ClienteTelefone,  ClienteEndereco, ClienteCEP, ClienteCidade, ClienteUf, buttonColumn);
