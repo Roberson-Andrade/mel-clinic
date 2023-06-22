@@ -9,18 +9,17 @@ import DAO.PessoaDAO;
 import entidades.Animal;
 import entidades.Pessoa;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -35,7 +34,8 @@ public class TelaNovoAnimalController implements Initializable {
 
     ObservableList<Animal> animais;
     final AnimaisDAO animalDao = new AnimaisDAO();
-    PessoaDAO proprietario = new PessoaDAO();
+    final PessoaDAO donoDao = new PessoaDAO();
+    
     @FXML
     private TextField textNome;
     @FXML
@@ -45,7 +45,7 @@ public class TelaNovoAnimalController implements Initializable {
     @FXML
     private DatePicker textNascimento;
     @FXML
-    private TextField textDono;
+    private ComboBox<Pessoa> comboBoxDono;
     @FXML
     private Button cancelButton;
     @FXML
@@ -59,6 +59,33 @@ public class TelaNovoAnimalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        loadDonos();
+    }
+    
+    private void loadDonos() {
+        try {
+            List<Pessoa> donos = donoDao.findAllPessoas();
+        
+            ObservableList<Pessoa> observableDono = FXCollections.observableArrayList(donos);
+        
+            comboBoxDono.setItems(observableDono);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+        private boolean validateInputs() {
+        if(textNome.getText().equals("")) {
+            errorLabel.setText("*Preencha os campos obrigatórios.");
+            return false;
+        }
+        
+        if(comboBoxDono.getValue() == null) {
+            errorLabel.setText("*Animal deve ter um dono.");
+            return false;
+        }
+        
+        return true;
     }
 
     void setAnimais(ObservableList<Animal> animais) {
@@ -74,24 +101,28 @@ public class TelaNovoAnimalController implements Initializable {
 
     @FXML
     private void onSubmit(ActionEvent event) throws Exception {
-        System.out.println(textNome + " aaaaaaaaaaaaaa");
+        boolean isInputValid = validateInputs();
+        
+        if(!isInputValid) {
+            return;
+        }
+        
         String name = textNome.getText();
         String raca = textRaca.getText();
         String sexo = textSexo.getText();
-        String dono = textDono.getText();
+        Pessoa dono = comboBoxDono.getValue();
         Date nascimento = null;
+        
         if (textNascimento.getValue() != null) {
             nascimento = java.sql.Date.valueOf(textNascimento.getValue());
         }
-        
-        Pessoa proprietario2 = proprietario.findPessoaByNome(dono);    
-        
+                
         Animal novoAnimal = new Animal();
         novoAnimal.setNome(name);
         novoAnimal.setRaca(raca);
         novoAnimal.setSexo(sexo);
         novoAnimal.setNascimento(nascimento);
-        novoAnimal.setProprietarioId(proprietario2);
+        novoAnimal.setProprietarioId(dono);
         
         animalDao.add(novoAnimal);
         

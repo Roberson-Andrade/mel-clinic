@@ -13,7 +13,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -92,15 +91,15 @@ public class TelaAnimaisController implements Initializable {
 }
 
     private void setupTable() {
-    TableColumn<Animal, String> AnimalDono = createTableColumn("Dono", 100, "proprietarioId");
     TableColumn<Animal, String> AnimalNome = createTableColumn("Nome", 100, "nome");
     TableColumn<Animal, String> AnimalRaca = createTableColumn("Raca", 100, "raca");
+    TableColumn<Animal, String> AnimalDono = createTableColumn("Dono", 100, "proprietarioId");
     TableColumn<Animal, String> AnimalSexo = createTableColumn("Sexo", 100, "sexo");
     TableColumn<Animal, LocalDate> AnimalNascimento = createTableColumn("Nascimento", 100, "nascimento");
-        //ali funciona tanto LocalDate quanto String
+    //ali funciona tanto LocalDate quanto String
     
-        TableViewAnimais.getColumns().addAll(AnimalDono,AnimalNome, AnimalRaca, AnimalSexo, AnimalNascimento);
-        TableViewAnimais.setItems(animais);
+    TableViewAnimais.getColumns().addAll(AnimalNome, AnimalRaca, AnimalDono, AnimalSexo, AnimalNascimento);
+    TableViewAnimais.setItems(animais);
     }
 
     @FXML

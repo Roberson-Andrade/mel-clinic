@@ -155,7 +155,7 @@ public class Pessoa implements Serializable {
     
     @Override
     public String toString() {
-        return "entidades.Pessoa[ id=" + id + " ]";
+        return this.nome;
     }
     
 }
