@@ -23,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -51,64 +52,104 @@ public class TelaAnimaisController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         updateAnimais(); //getting all animals
-        
+
         setupTable(); //retrieving data from DB
     }
- 
+
     private void updateAnimais() {
         try {
             List<Animal> results = animalDao.findAllAnimais();
             //como funciona isso, se for nulo ele atribui os resultados da pesquisa
             //mas se nao for nula ele limpa, zera e depois adiciona oq? o vazio?
-            if(animais == null) 
+            if (animais == null) {
                 animais = FXCollections.observableArrayList(results);
-            else {
+            } else {
                 animais.clear();
                 animais.addAll(results);
             }
         } catch (Exception e) {
-            
+
         }
     }
 
     private TableColumn createTableColumn(String columnText, double minWidth, String propertyName) {
-    TableColumn<Animal, String> column = new TableColumn<>(columnText);
+        TableColumn<Animal, String> column = new TableColumn<>(columnText);
 
-    column.setMinWidth(minWidth);
-    
-    switch (propertyName) {
-        case "proprietarioId":
-            column.setCellValueFactory(cellData -> {
-                Animal animal = cellData.getValue();
-                Pessoa proprietario = animal.getProprietarioId();
-                String proprietarioName = (proprietario != null) ? proprietario.getNome() : "";
-                return new SimpleStringProperty(proprietarioName);
-            });     break;
-        case "nascimento":
-            column.setCellValueFactory(cellData -> {
-                Animal animal = cellData.getValue();
-                Date proprietario = animal.getNascimento();
-                String dataNascimento = new SimpleDateFormat("dd/MM/yyyy").format(proprietario);
-                return new SimpleStringProperty(dataNascimento);
-            });     break;
-        default:
-            column.setCellValueFactory(new PropertyValueFactory<>(propertyName));
-            break;
+        column.setMinWidth(minWidth);
+
+        switch (propertyName) {
+            case "proprietarioId":
+                column.setCellValueFactory(cellData -> {
+                    Animal animal = cellData.getValue();
+                    Pessoa proprietario = animal.getProprietarioId();
+                    String proprietarioName = (proprietario != null) ? proprietario.getNome() : "";
+                    return new SimpleStringProperty(proprietarioName);
+                });
+                break;
+            case "nascimento":
+                column.setCellValueFactory(cellData -> {
+                    Animal animal = cellData.getValue();
+                    Date proprietario = animal.getNascimento();
+                    String dataNascimento = new SimpleDateFormat("dd/MM/yyyy").format(proprietario);
+                    return new SimpleStringProperty(dataNascimento);
+                });
+                break;
+            default:
+                column.setCellValueFactory(new PropertyValueFactory<>(propertyName));
+                break;
+        }
+
+        return column;
     }
 
-    return column;
-}
+    private TableColumn<Animal, Void> createButtonColumn() {
+        TableColumn<Animal, Void> buttonColumn = new TableColumn<>("Action");
+
+        buttonColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button button = new Button("Click");
+
+            {
+                button.setOnAction(event -> {
+                    Animal animal = getTableRow().getItem();
+
+                    if (animal != null) {
+                        try {
+                            animalDao.delete(animal.getId());
+
+                            updateAnimais();
+                        } catch (Exception e) {
+                            System.out.print(e.getMessage());
+                        }
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(button);
+                }
+            }
+        });
+
+        return buttonColumn;
+    }
 
     private void setupTable() {
-    TableColumn<Animal, String> AnimalNome = createTableColumn("Nome", 100, "nome");
-    TableColumn<Animal, String> AnimalRaca = createTableColumn("Raca", 100, "raca");
-    TableColumn<Animal, String> AnimalDono = createTableColumn("Dono", 100, "proprietarioId");
-    TableColumn<Animal, String> AnimalSexo = createTableColumn("Sexo", 100, "sexo");
-    TableColumn<Animal, Date> AnimalNascimento = createTableColumn("Nascimento", 100, "nascimento");
-    //ali funciona tanto LocalDate quanto String
-    
-    TableViewAnimais.getColumns().addAll(AnimalNome, AnimalRaca, AnimalDono, AnimalSexo, AnimalNascimento);
-    TableViewAnimais.setItems(animais);
+        TableColumn<Animal, String> AnimalNome = createTableColumn("Nome", 100, "nome");
+        TableColumn<Animal, String> AnimalRaca = createTableColumn("Raca", 100, "raca");
+        TableColumn<Animal, String> AnimalDono = createTableColumn("Dono", 100, "proprietarioId");
+        TableColumn<Animal, String> AnimalSexo = createTableColumn("Sexo", 100, "sexo");
+        TableColumn<Animal, Date> AnimalNascimento = createTableColumn("Nascimento", 100, "nascimento");
+        //ali funciona tanto LocalDate quanto String
+        TableColumn<Animal, Void> buttonColumn = createButtonColumn();
+        
+        TableViewAnimais.getColumns().addAll(AnimalNome, AnimalRaca, AnimalDono, AnimalSexo, AnimalNascimento, buttonColumn);
+        TableViewAnimais.setItems(animais);
     }
 
     @FXML
