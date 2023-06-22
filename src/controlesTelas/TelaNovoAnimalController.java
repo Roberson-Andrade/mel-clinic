@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -42,7 +43,7 @@ public class TelaNovoAnimalController implements Initializable {
     @FXML
     private TextField textSexo;
     @FXML
-    private TextField textNascimento;
+    private DatePicker textNascimento;
     @FXML
     private TextField textDono;
     @FXML
@@ -78,19 +79,12 @@ public class TelaNovoAnimalController implements Initializable {
         String raca = textRaca.getText();
         String sexo = textSexo.getText();
         String dono = textDono.getText();
-        String nascimentoText = textNascimento.getText();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date nascimento = null;
-        
-        Pessoa proprietario2 = proprietario.findPessoaByNome(dono);
-        
-        try {
-            nascimento = dateFormat.parse(nascimentoText);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (textNascimento.getValue() != null) {
+            nascimento = java.sql.Date.valueOf(textNascimento.getValue());
         }
         
-        
+        Pessoa proprietario2 = proprietario.findPessoaByNome(dono);    
         
         Animal novoAnimal = new Animal();
         novoAnimal.setNome(name);
@@ -99,16 +93,11 @@ public class TelaNovoAnimalController implements Initializable {
         novoAnimal.setNascimento(nascimento);
         novoAnimal.setProprietarioId(proprietario2);
         
-
-        //novoAnimal.setProprietarioId();
-        //novoAnimal.setId(3);
-        
-        
         animalDao.add(novoAnimal);
         
         textRaca.setText("");
         textSexo.setText("");
-        textNascimento.setText("");
+        textNascimento.setValue(null);
         
         List<Animal> results = animalDao.findAllAnimais();
         animais.clear();
