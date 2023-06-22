@@ -91,16 +91,32 @@ public class TelaNovoClienteController implements Initializable {
         String uf = textUf.getValue();
         String cellphone = textCellphone.getText();
         String rg = textRg.getText();
-        Integer cep = Integer.valueOf(textCEP.getText());
+        String cep = textCEP.getText();
         String cpf = textCpf.getText();
         
         Pessoa novaPessoa = new Pessoa();
         novaPessoa.setNome(name);
-        novaPessoa.setEndereco(address);
-        novaPessoa.setCidade(city);
-        novaPessoa.setUf(uf);
-        novaPessoa.setFoneContato(cellphone);
-        novaPessoa.setCep(cep);
+        
+        if(!address.equals("")) {
+            novaPessoa.setEndereco(address);
+        }
+        
+        if(!city.equals("")) {
+            novaPessoa.setCidade(city);
+        }
+        
+        if(uf != null) {
+            novaPessoa.setUf(uf);
+        }
+        
+        if(!cellphone.equals("")) {
+            novaPessoa.setFoneContato(cellphone);
+        }
+        
+        if(!cep.equals("")) {
+            novaPessoa.setCep(Integer.valueOf(cep));
+        }
+        
 
         pessoaDao.add(novaPessoa);
         

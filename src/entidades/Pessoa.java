@@ -54,7 +54,7 @@ public class Pessoa implements Serializable {
     private String uf;
     @Column(name = "foneContato")
     private String foneContato;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proprietarioId")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "proprietarioId")
     private Collection<Animal> animalCollection;
 
     public Pessoa() {
@@ -152,7 +152,7 @@ public class Pessoa implements Serializable {
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
         return this.nome;

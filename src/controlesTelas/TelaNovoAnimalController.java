@@ -120,16 +120,18 @@ public class TelaNovoAnimalController implements Initializable {
                 
         Animal novoAnimal = new Animal();
         novoAnimal.setNome(name);
-        novoAnimal.setRaca(raca);
+        
+        if(!raca.equals("")) {
+             novoAnimal.setRaca(raca);
+        }
+        
         novoAnimal.setSexo(sexo);
         novoAnimal.setProprietarioId(dono);
         
         if(nascimento != null) {
             novoAnimal.setNascimento(nascimento);
         }
-        
-        System.err.println(novoAnimal.getNome());
-        
+                
         animalDao.add(novoAnimal);
         
         textNome.setText("");

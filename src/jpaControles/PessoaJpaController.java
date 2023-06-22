@@ -74,18 +74,6 @@ public class PessoaJpaController implements Serializable {
             Pessoa persistentPessoa = em.find(Pessoa.class, pessoa.getId());
             Collection<Animal> animalCollectionOld = persistentPessoa.getAnimalCollection();
             Collection<Animal> animalCollectionNew = pessoa.getAnimalCollection();
-            List<String> illegalOrphanMessages = null;
-            for (Animal animalCollectionOldAnimal : animalCollectionOld) {
-                if (!animalCollectionNew.contains(animalCollectionOldAnimal)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Animal " + animalCollectionOldAnimal + " since its proprietarioId field is not nullable.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
             Collection<Animal> attachedAnimalCollectionNew = new ArrayList<Animal>();
             for (Animal animalCollectionNewAnimalToAttach : animalCollectionNew) {
                 animalCollectionNewAnimalToAttach = em.getReference(animalCollectionNewAnimalToAttach.getClass(), animalCollectionNewAnimalToAttach.getId());
@@ -133,17 +121,6 @@ public class PessoaJpaController implements Serializable {
                 pessoa.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The pessoa with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            Collection<Animal> animalCollectionOrphanCheck = pessoa.getAnimalCollection();
-            for (Animal animalCollectionOrphanCheckAnimal : animalCollectionOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Pessoa (" + pessoa + ") cannot be destroyed since the Animal " + animalCollectionOrphanCheckAnimal + " in its animalCollection field has a non-nullable proprietarioId field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(pessoa);
             em.getTransaction().commit();

@@ -74,18 +74,6 @@ public class ProcedimentoJpaController implements Serializable {
             Procedimento persistentProcedimento = em.find(Procedimento.class, procedimento.getId());
             Collection<Agendamento> agendamentoCollectionOld = persistentProcedimento.getAgendamentoCollection();
             Collection<Agendamento> agendamentoCollectionNew = procedimento.getAgendamentoCollection();
-            List<String> illegalOrphanMessages = null;
-            for (Agendamento agendamentoCollectionOldAgendamento : agendamentoCollectionOld) {
-                if (!agendamentoCollectionNew.contains(agendamentoCollectionOldAgendamento)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Agendamento " + agendamentoCollectionOldAgendamento + " since its procedimentoId field is not nullable.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
             Collection<Agendamento> attachedAgendamentoCollectionNew = new ArrayList<Agendamento>();
             for (Agendamento agendamentoCollectionNewAgendamentoToAttach : agendamentoCollectionNew) {
                 agendamentoCollectionNewAgendamentoToAttach = em.getReference(agendamentoCollectionNewAgendamentoToAttach.getClass(), agendamentoCollectionNewAgendamentoToAttach.getId());
@@ -133,17 +121,6 @@ public class ProcedimentoJpaController implements Serializable {
                 procedimento.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The procedimento with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            Collection<Agendamento> agendamentoCollectionOrphanCheck = procedimento.getAgendamentoCollection();
-            for (Agendamento agendamentoCollectionOrphanCheckAgendamento : agendamentoCollectionOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Procedimento (" + procedimento + ") cannot be destroyed since the Agendamento " + agendamentoCollectionOrphanCheckAgendamento + " in its agendamentoCollection field has a non-nullable procedimentoId field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(procedimento);
             em.getTransaction().commit();
