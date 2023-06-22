@@ -10,7 +10,8 @@ import entidades.Pessoa;
 import helpers.ScenePath;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
@@ -52,9 +53,8 @@ public class TelaAnimaisController implements Initializable {
         updateAnimais(); //getting all animals
         
         setupTable(); //retrieving data from DB
-        // TODO
     }
-    
+ 
     private void updateAnimais() {
         try {
             List<Animal> results = animalDao.findAllAnimais();
@@ -76,15 +76,24 @@ public class TelaAnimaisController implements Initializable {
 
     column.setMinWidth(minWidth);
     
-    if (propertyName.equals("proprietarioId")) {
-        column.setCellValueFactory(cellData -> {
-            Animal animal = cellData.getValue();
-            Pessoa proprietario = animal.getProprietarioId();
-            String proprietarioName = (proprietario != null) ? proprietario.getNome() : "";
-            return new SimpleStringProperty(proprietarioName);
-        });
-    } else {
-        column.setCellValueFactory(new PropertyValueFactory<>(propertyName));
+    switch (propertyName) {
+        case "proprietarioId":
+            column.setCellValueFactory(cellData -> {
+                Animal animal = cellData.getValue();
+                Pessoa proprietario = animal.getProprietarioId();
+                String proprietarioName = (proprietario != null) ? proprietario.getNome() : "";
+                return new SimpleStringProperty(proprietarioName);
+            });     break;
+        case "nascimento":
+            column.setCellValueFactory(cellData -> {
+                Animal animal = cellData.getValue();
+                Date proprietario = animal.getNascimento();
+                String dataNascimento = new SimpleDateFormat("dd/MM/yyyy").format(proprietario);
+                return new SimpleStringProperty(dataNascimento);
+            });     break;
+        default:
+            column.setCellValueFactory(new PropertyValueFactory<>(propertyName));
+            break;
     }
 
     return column;
@@ -95,7 +104,7 @@ public class TelaAnimaisController implements Initializable {
     TableColumn<Animal, String> AnimalRaca = createTableColumn("Raca", 100, "raca");
     TableColumn<Animal, String> AnimalDono = createTableColumn("Dono", 100, "proprietarioId");
     TableColumn<Animal, String> AnimalSexo = createTableColumn("Sexo", 100, "sexo");
-    TableColumn<Animal, LocalDate> AnimalNascimento = createTableColumn("Nascimento", 100, "nascimento");
+    TableColumn<Animal, Date> AnimalNascimento = createTableColumn("Nascimento", 100, "nascimento");
     //ali funciona tanto LocalDate quanto String
     
     TableViewAnimais.getColumns().addAll(AnimalNome, AnimalRaca, AnimalDono, AnimalSexo, AnimalNascimento);

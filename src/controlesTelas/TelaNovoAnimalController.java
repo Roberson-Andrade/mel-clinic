@@ -113,6 +113,7 @@ public class TelaNovoAnimalController implements Initializable {
         Pessoa dono = comboBoxDono.getValue();
         Date nascimento = null;
         
+        
         if (textNascimento.getValue() != null) {
             nascimento = java.sql.Date.valueOf(textNascimento.getValue());
         }
@@ -121,13 +122,20 @@ public class TelaNovoAnimalController implements Initializable {
         novoAnimal.setNome(name);
         novoAnimal.setRaca(raca);
         novoAnimal.setSexo(sexo);
-        novoAnimal.setNascimento(nascimento);
         novoAnimal.setProprietarioId(dono);
+        
+        if(nascimento != null) {
+            novoAnimal.setNascimento(nascimento);
+        }
+        
+        System.err.println(novoAnimal.getNome());
         
         animalDao.add(novoAnimal);
         
+        textNome.setText("");
         textRaca.setText("");
         textSexo.setText("");
+        comboBoxDono.setValue(null);
         textNascimento.setValue(null);
         
         List<Animal> results = animalDao.findAllAnimais();
