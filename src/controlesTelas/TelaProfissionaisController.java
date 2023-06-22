@@ -7,6 +7,8 @@ package controlesTelas;
 import DAO.ProfissionalDAO;
 import entidades.Profissional;
 import helpers.GenericCreateTableButton;
+import helpers.ScenePath;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -14,11 +16,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -96,8 +103,22 @@ public class TelaProfissionaisController implements Initializable {
     }
 
     @FXML
-    private void onClick(ActionEvent event) {
-
+    private void onClick(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(ScenePath.NOVO_PROFISSIONAL.getPath()));
+        AnchorPane root = (AnchorPane) loader.load();
+        
+        // Get the controller of the new stage
+        TelaNovoProfissionalController novoProfissionalController = loader.getController();
+        // Pass the observable list to the controller
+        novoProfissionalController.setProfissionais(profissionais);
+        
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        
+        stage.setTitle("Novo Profissional");
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 
 }

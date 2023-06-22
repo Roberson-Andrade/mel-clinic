@@ -4,8 +4,10 @@
  */
 package controlesTelas;
 
+import entidades.Profissional;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,6 +37,8 @@ public class TelaNovoProfissionalController implements Initializable {
     private Button createButton;
     @FXML
     private Label errorLabel;
+    
+    ObservableList<Profissional> profissionais;
 
     /**
      * Initializes the controller class.
@@ -43,6 +47,10 @@ public class TelaNovoProfissionalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+    public void setProfissionais(ObservableList<Profissional> profissionais) {
+        this.profissionais = profissionais;
+    }
 
     @FXML
     private void onClickCancelButton(ActionEvent event) {
