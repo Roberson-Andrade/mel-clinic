@@ -6,6 +6,7 @@ package controlesTelas;
 
 import DAO.PessoaDAO;
 import entidades.Pessoa;
+import helpers.UF;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -38,7 +40,7 @@ public class TelaNovoClienteController implements Initializable {
     @FXML
     private TextField textCity;
     @FXML
-    private TextField textUf;
+    private ComboBox<String> textUf;
     @FXML
     private TextField textCellphone;
     @FXML
@@ -58,7 +60,8 @@ public class TelaNovoClienteController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }  
+        textUf.setItems(UF.LISTA_UFS);
+    }
     
     public void setPessoas(ObservableList<Pessoa> pessoas) {
         this.pessoas = pessoas;
@@ -67,11 +70,6 @@ public class TelaNovoClienteController implements Initializable {
     private boolean validateInputs() {
         if(textName.getText().equals("")) {
             errorLabel.setText("*Preencha os campos obrigatórios.");
-            return false;
-        }
-        
-        if (textUf.getText().length() > 2) {
-            errorLabel.setText("*Campo UF deve ter no máximo 2 characteres.");
             return false;
         }
         
@@ -90,7 +88,7 @@ public class TelaNovoClienteController implements Initializable {
         String name = textName.getText();
         String address = textAddress.getText();
         String city = textCity.getText();
-        String uf = textUf.getText();
+        String uf = textUf.getValue();
         String cellphone = textCellphone.getText();
         String rg = textRg.getText();
         Integer cep = Integer.valueOf(textCEP.getText());
@@ -103,20 +101,16 @@ public class TelaNovoClienteController implements Initializable {
         novaPessoa.setUf(uf);
         novaPessoa.setFoneContato(cellphone);
         novaPessoa.setCep(cep);
-        //pessoa n tem cpf nem rg
-        //
-        //
-        //
-        //
-        
+
         pessoaDao.add(novaPessoa);
         
         textName.setText("");
         textAddress.setText("");
         textCity.setText("");
-        textUf.setText("");
         textCellphone.setText("");
         errorLabel.setText("");
+        textRg.setText("");
+        textCpf.setText("");
         
         List<Pessoa> results = pessoaDao.findAllPessoas();
         

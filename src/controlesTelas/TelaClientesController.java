@@ -60,11 +60,13 @@ public class TelaClientesController implements Initializable {
         try {
             List<Pessoa> results = pessoaDao.findAllPessoas();
         
-            if(pessoas == null) //checar se pessoas eh nulo para inicializar a lista de pessoas
+            if(pessoas == null){ //checar se pessoas eh nulo para inicializar a lista de pessoas
+                System.out.println("IF");
                 pessoas = FXCollections.observableArrayList(results);
-            else { //caso contrario limpa para adicionar a nova lista atualizada
+            } else { //caso contrario limpa para adicionar a nova lista atualizada
+                    System.out.println("ELSE");
                 pessoas.clear();
-                pessoas.addAll(pessoas);
+                pessoas.addAll(results);
             }
             
         } catch (Exception e) {
@@ -93,11 +95,8 @@ public class TelaClientesController implements Initializable {
                     if (pessoa != null) {
                         try {
                             pessoaDao.delete(pessoa.getId());
-                            
-                            List<Pessoa> results = pessoaDao.findAllPessoas();
-                            
-                            pessoas.clear();
-                            pessoas.addAll(results);
+                                                        
+                            updateClientes();
                         } catch (Exception e) {
                             System.out.print(e.getMessage());
                         }
