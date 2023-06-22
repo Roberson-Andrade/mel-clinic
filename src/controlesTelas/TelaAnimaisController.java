@@ -65,25 +65,16 @@ public class TelaAnimaisController implements Initializable {
                 animais = FXCollections.observableArrayList(results);
             else {
                 animais.clear();
-                animais.addAll(animais);
+                animais.addAll(results);
             }
         } catch (Exception e) {
             
         }
     }
 
-//    private TableColumn createTableColumn(String columnText, double minWidth, String propertyName) {
-//        //pq eh integer ali?? eh integer pra tudo?
-//        TableColumn column = new TableColumn<Animal, String>();
-//        column.setText(columnText);
-//        column.setMinWidth(minWidth);
-//        column.setCellValueFactory(new PropertyValueFactory<>(propertyName));
-//
-//        return column;
-//    } //metodo original com base no telaclientescontroller
     private TableColumn createTableColumn(String columnText, double minWidth, String propertyName) {
     TableColumn<Animal, String> column = new TableColumn<>(columnText);
-    //se coloca o <Animal, String> pro outro lado para de funcionar?
+
     column.setMinWidth(minWidth);
     
     if (propertyName.equals("proprietarioId")) {
@@ -99,21 +90,8 @@ public class TelaAnimaisController implements Initializable {
 
     return column;
 }
-    
-//    private TableColumn createTableColumn2(String columnText, double minWidth, String propertyName) {
-//    TableColumn<Animal, String> column = new TableColumn<>(columnText);
-//    column.setMinWidth(minWidth);
-//    column.setCellValueFactory(cellData -> {
-//        Animal animal = cellData.getValue();
-//        Pessoa proprietario = animal.getProprietarioId();
-//        String proprietarioName = (proprietario != null) ? proprietario.getNome() : "";
-//        return new SimpleStringProperty(proprietarioName);
-//    });
-//    return column;
-//} //uma forma de fazer, usando um metodo so para essa coluna especifica
 
     private void setupTable() {
-//segue a forma de um metodos so para a coluna especifica se colocar o 2 no final do createtablecolumn  
     TableColumn<Animal, String> AnimalDono = createTableColumn("Dono", 100, "proprietarioId");
     TableColumn<Animal, String> AnimalNome = createTableColumn("Nome", 100, "nome");
     TableColumn<Animal, String> AnimalRaca = createTableColumn("Raca", 100, "raca");
