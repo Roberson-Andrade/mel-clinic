@@ -44,6 +44,9 @@ public class TelaClientesController implements Initializable {
     @FXML
     private Button novoCliente;
 
+    //pode apagar isso?
+    //
+    //
     public TelaClientesController() {
         System.out.println("TelaClientesController instantiated.");
     }

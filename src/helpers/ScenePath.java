@@ -14,7 +14,9 @@ public enum ScenePath {
     ANIMAIS("/telas/TelaAnimais.fxml"),
     NOVO_ANIMAL("/telas/TelaNovoAnimal.fxml"),
     CLIENTES("/telas/TelaClientes.fxml"),
-    NOVO_CLIENTE("/telas/TelaNovoCliente.fxml");
+    NOVO_CLIENTE("/telas/TelaNovoCliente.fxml"),
+    PROFISSIONAIS("/telas/TelaProfissionais.fxml"),
+    NOVO_PROFISSIONAL("/telasTelaNovoProfissional.fxml");
     
 
     private final String path;
