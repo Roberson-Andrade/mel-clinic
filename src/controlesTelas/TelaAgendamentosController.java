@@ -127,9 +127,11 @@ public class TelaAgendamentosController implements Initializable {
         TableColumn<Agendamento, String> colProfissional = createTableColumn("Profissional", 150, "profissionalId");
         TableColumn<Agendamento, String> colProcedimento = createTableColumn("Procedimento", 200, "procedimentoId");
         TableColumn<Agendamento, String> colDataAgendamento = createTableColumn("Data do Agendamento", 150, "dataAgendamento");
+        TableColumn<Agendamento, String> colPagamento = createTableColumn("Forma de pagamento", 150 ,"pagamento");
+        TableColumn<Agendamento, String> colValor = createTableColumn("Valor", 100, "valorCobrado");
         TableColumn<Agendamento, Void> buttonColumn = createAgendamentoButtonColumn();
 
-        tableViewAgendamentos.getColumns().addAll(colAnimal, colProfissional, colProcedimento, colDataAgendamento, buttonColumn);
+        tableViewAgendamentos.getColumns().addAll(colAnimal, colProfissional, colProcedimento, colDataAgendamento,colPagamento, colValor, buttonColumn);
         tableViewAgendamentos.setItems(agendamentos);
     }
 

@@ -6,6 +6,7 @@ package DAO;
 
 import entidades.Agendamento;
 import entidades.Profissional;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -96,7 +97,70 @@ public class AgendamentoDAO {
                 em.close();
             }
         }
-        
+    }
+
+    public List<Agendamento> findAllAgendamentosByProfissionalAndMonth(Integer profissionalId, LocalDate month) throws Exception {
+        EntityManager em = objetoJPA.getEntityManager();
+
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Agendamento> query = cb.createQuery(Agendamento.class);
+            Root<Agendamento> agendamentoRoot = query.from(Agendamento.class);
+
+            // Faz o join utilizando o atributo mapeado na entidade Agendamento
+            Join<Agendamento, Profissional> profissionalJoin = agendamentoRoot.join("profissionalId");
+
+            // Adiciona as condições para filtrar pelo profissional e mês
+            query.where(
+                cb.and(
+                    cb.equal(profissionalJoin.get("id"), profissionalId),
+                    cb.equal(cb.function("year", Integer.class, agendamentoRoot.get("dataAgendamento")), month.getYear()),
+                    cb.equal(cb.function("month", Integer.class, agendamentoRoot.get("dataAgendamento")), month.getMonthValue())
+                )
+            );
+
+            List<Agendamento> resultados = em.createQuery(query).getResultList();
+
+            if (!resultados.isEmpty()) {
+                return resultados;
+            } else {
+                return null;
+            }
+
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+    
+    public List<Agendamento> findAllAgendamentosByAnimal(Integer animalId) throws Exception {
+        EntityManager em = objetoJPA.getEntityManager();
+
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Agendamento> query = cb.createQuery(Agendamento.class);
+            Root<Agendamento> agendamentoRoot = query.from(Agendamento.class);
+
+            // Faz o join utilizando o atributo mapeado na entidade Agendamento
+            Join<Agendamento, Profissional> profissionalJoin = agendamentoRoot.join("animalId");
+
+            // Adiciona as condições para filtrar pelo profissional
+            query.where(cb.equal(profissionalJoin.get("id"), animalId));
+
+            List<Agendamento> resultados = em.createQuery(query).getResultList();
+            
+            if (!resultados.isEmpty()) {
+                return resultados;
+            } else {
+                return null;
+            }
+
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
     }
 }
 

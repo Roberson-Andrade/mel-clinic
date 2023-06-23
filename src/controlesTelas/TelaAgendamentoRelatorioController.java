@@ -7,14 +7,16 @@ package controlesTelas;
 import DAO.AgendamentoDAO;
 import DAO.ProfissionalDAO;
 import entidades.Agendamento;
-import entidades.Especie;
 import entidades.Profissional;
 import helpers.TipoRelatorioAgendamento;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -79,10 +81,12 @@ public class TelaAgendamentoRelatorioController implements Initializable {
             List<Agendamento> results = new ArrayList<>();
             
             if(tipo.equals(TipoRelatorioAgendamento.POR_DIA)) {
-               results = agendamentoDao.findAllAgendamentosByDate(new Date());
+               results = agendamentoDao.findAllAgendamentosByDate(Date.from(datePickerDia.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
             } else {
                results = agendamentoDao.findAllAgendamentosByProfissional(comboBoxProfissional.getValue().getId());
             }
+            
+            System.out.println(results);
                     
             if(agendamentos == null){ //checar se pessoas eh nulo para inicializar a lista de pessoas
                 agendamentos = FXCollections.observableArrayList(results);
@@ -92,15 +96,25 @@ public class TelaAgendamentoRelatorioController implements Initializable {
             }
             
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
      
-     private TableColumn createTableColumn(String columnText,double minWidth, String propertyName) {
-        TableColumn column = new TableColumn<Especie,Integer>();
-        column.setText(columnText);
+     private TableColumn<Agendamento, String> createTableColumn(String columnText,double minWidth, String propertyName) {
+        TableColumn<Agendamento, String> column = new TableColumn<>(columnText);
         column.setMinWidth(minWidth);
-        column.setCellValueFactory(new PropertyValueFactory(propertyName));
         
+         if(propertyName.equals("dataAgendamento")) {
+            column.setCellValueFactory(cellData -> {
+                Agendamento agendamento = cellData.getValue();
+                Date dataAgendamento = agendamento.getDataAgendamento();
+                String formattedDate = (dataAgendamento != null) ? new SimpleDateFormat("dd/MM/yyyy").format(dataAgendamento) : "";
+                return new SimpleStringProperty(formattedDate);
+            });
+         } else {
+            column.setCellValueFactory(new PropertyValueFactory(propertyName));
+         }
+         
         return column;
     }
     

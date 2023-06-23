@@ -90,10 +90,10 @@ public class TelaProcedimentosController implements Initializable {
 
     private void setupTable() {
         TableColumn procedimentoId = createTableColumn("id", 30, "id");
-        TableColumn procedimentoCodigo = createTableColumn("código", 100, "codigo");
-        TableColumn procedimentoDescricao = createTableColumn("descricão", 100, "descricao");
+        TableColumn procedimentoCodigo = createTableColumn("Código", 100, "codigo");
+        TableColumn procedimentoDescricao = createTableColumn("Descricão", 100, "descricao");
         TableColumn procedimentoNumSessoes = createTableColumn("Número de sessões", 100, "numSessao");
-        TableColumn procedimentoOrientacoes = createTableColumn("orientações", 100, "orientacoes");
+        TableColumn procedimentoOrientacoes = createTableColumn("Orientações", 100, "orientacoes");
         TableColumn procedimentoValor = createTableColumn("Valor", 100, "valor");
         TableColumn<Procedimento, Void> buttonColumn = createEspecieButtonColumn();
         

@@ -16,7 +16,7 @@ import javafx.util.Callback;
 public class GenericCreateTableButton {
 
     public static <T> TableColumn<T, Void> createButtonColumn(Callback<T, Void> callback) {
-        TableColumn<T, Void> buttonColumn = new TableColumn<>("Action");
+        TableColumn<T, Void> buttonColumn = new TableColumn<>("Ações");
 
         buttonColumn.setCellFactory(param -> new TableCell<>() {
             private final Button button = new Button("Excluir");
