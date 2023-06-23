@@ -122,11 +122,13 @@ public class TelaNovoAgendamentoController implements Initializable {
             return false;
         }
 
-        try {
-            Integer.valueOf(textSessionNum.getText());
-        } catch (NumberFormatException ex) {
-            errorLabel.setText("Campo número da sessão deve ser um número");
-            return false;
+        if (!textSessionNum.getText().equals("")) {
+            try {
+                Integer.valueOf(textSessionNum.getText());
+            } catch (NumberFormatException ex) {
+                errorLabel.setText("Campo número da sessão deve ser um número");
+                return false;
+            }
         }
 
         return true;
@@ -153,7 +155,9 @@ public class TelaNovoAgendamentoController implements Initializable {
         String valorCobrado = textValorCobrado.getText();
 
         Agendamento agendamento = new Agendamento();
-        agendamento.setNumSessao(Integer.valueOf(sessionNum));
+        if (!textSessionNum.getText().equals("")) {
+            agendamento.setNumSessao(Integer.valueOf(sessionNum));
+        }
         agendamento.setPagamento(pagamento);
         agendamento.setDataAgendamento(java.sql.Date.valueOf(date));
         agendamento.setAnimalId(animal);
@@ -171,7 +175,7 @@ public class TelaNovoAgendamentoController implements Initializable {
         textValorCobrado.clear();
         comboBoxPagamento.setValue(null);
         errorLabel.setText("");
-        
+
         List<Agendamento> results = agendamentoDao.findAllAgendamentos();
         agendamentos.clear();
         agendamentos.addAll(results);
