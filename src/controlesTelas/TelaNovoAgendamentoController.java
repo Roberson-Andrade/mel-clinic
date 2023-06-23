@@ -88,7 +88,7 @@ public class TelaNovoAgendamentoController implements Initializable {
             animais = FXCollections.observableArrayList(animalList);
             comboBoxNomeAnimal.setItems(animais);
 
-            List<Profissional> profissionalList = profissionalDao.findAllPessoas();
+            List<Profissional> profissionalList = profissionalDao.findAllProfissionais();
             profissionais = FXCollections.observableArrayList(profissionalList);
             comboBoxNomeProfissional.setItems(profissionais);
 

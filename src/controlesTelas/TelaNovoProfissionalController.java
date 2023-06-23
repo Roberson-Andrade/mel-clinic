@@ -114,7 +114,7 @@ public class TelaNovoProfissionalController implements Initializable {
         textCodigo.setText("");
         errorLabel.setText("");
 
-        List<Profissional> results = profissionalDao.findAllPessoas();
+        List<Profissional> results = profissionalDao.findAllProfissionais();
 
         profissionais.clear();
         profissionais.addAll(results);

@@ -30,11 +30,10 @@
                </font>
             </Text>
             <Button fx:id="botaoAgenda" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickBotaoAgenda" text="Agendamento" />
-            <Button fx:id="botaoProfissionais" layoutX="10.0" layoutY="26.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickBotaoProfissionais" text="Profissionais" />
-            <Button layoutX="10.0" layoutY="26.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Relatórios" />
             <Button fx:id="botaoClientes" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickBotaoClientes" text="Clientes" />
-            <Button fx:id="botaoAnimais" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickBotaoAnimais" text="Animais" />
             <Button fx:id="botaoEspecies" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickBotaoEspecies" text="Espécies" />
+            <Button fx:id="botaoAnimais" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickBotaoAnimais" text="Animais" />
+            <Button fx:id="botaoProfissionais" layoutX="10.0" layoutY="26.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickBotaoProfissionais" text="Profissionais" />
             <Button fx:id="botaoProcedimentos" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickBotaoProcedimentos" text="Procedimentos" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Relatórios">
                <font>

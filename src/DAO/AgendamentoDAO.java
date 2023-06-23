@@ -5,13 +5,19 @@
 package DAO;
 
 import entidades.Agendamento;
+import entidades.Profissional;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 import jpaControles.AgendamentoJpaController;
+
 
 /**
  *
@@ -44,10 +50,9 @@ public class AgendamentoDAO {
     }
     
     public List<Agendamento> findAllAgendamentosByDate(Date date) throws Exception {
-        EntityManager em = null;
+        EntityManager em = objetoJPA.getEntityManager();
         
         try {
-            em = emf.createEntityManager();
             Query query = em.createNamedQuery("Agendamento.findByDataAgendamento");
             query.setParameter("dataAgendamento", date);
             List<Agendamento> resultados = query.getResultList();
@@ -62,6 +67,36 @@ public class AgendamentoDAO {
                 em.close();
             }
         }
+    }
+    
+    public List<Agendamento> findAllAgendamentosByProfissional(Integer profissionalId) throws Exception {
+        EntityManager em = objetoJPA.getEntityManager();
+
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Agendamento> query = cb.createQuery(Agendamento.class);
+            Root<Agendamento> agendamentoRoot = query.from(Agendamento.class);
+
+            // Faz o join utilizando o atributo mapeado na entidade Agendamento
+            Join<Agendamento, Profissional> profissionalJoin = agendamentoRoot.join("profissionalId");
+
+            // Adiciona as condições para filtrar pelo profissional
+            query.where(cb.equal(profissionalJoin.get("id"), profissionalId));
+
+            List<Agendamento> resultados = em.createQuery(query).getResultList();
+            
+            if (!resultados.isEmpty()) {
+                return resultados;
+            } else {
+                return null;
+            }
+
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        
     }
 }
 

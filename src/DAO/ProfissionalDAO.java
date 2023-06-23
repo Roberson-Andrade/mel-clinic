@@ -32,11 +32,11 @@ public class ProfissionalDAO {
         objetoJPA.destroy(id);
     }
 
-    public void update(Profissional pessoa) throws Exception {
-        objetoJPA.edit(pessoa);
+    public void update(Profissional profissional) throws Exception {
+        objetoJPA.edit(profissional);
     }
 
-    public List<Profissional> findAllPessoas() throws Exception {
+    public List<Profissional> findAllProfissionais() throws Exception {
         return objetoJPA.findProfissionalEntities();
     }
 

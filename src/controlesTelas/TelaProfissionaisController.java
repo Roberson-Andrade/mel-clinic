@@ -56,7 +56,7 @@ public class TelaProfissionaisController implements Initializable {
     private void updateProfissionais() {
         try {
             //findallpessoas kkkkkkkkkk
-            List<Profissional> results = profissionalDao.findAllPessoas();
+            List<Profissional> results = profissionalDao.findAllProfissionais();
 
             if (profissionais == null) { //checar se pessoas eh nulo para inicializar a lista de pessoas
                 System.out.println("IF");
