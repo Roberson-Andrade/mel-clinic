@@ -53,14 +53,13 @@ public class Animal implements Serializable {
     @Basic(optional = false)
     @Column(name = "sexo")
     private String sexo;
-    @Basic(optional = false)
     @Column(name = "nascimento")
     @Temporal(TemporalType.DATE)
     private Date nascimento;
     @JoinColumn(name = "proprietarioId", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Pessoa proprietarioId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "animalId")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "animalId")
     private Collection<Agendamento> agendamentoCollection;
 
     public Animal() {
@@ -70,12 +69,11 @@ public class Animal implements Serializable {
         this.id = id;
     }
 
-    public Animal(Integer id, String nome, String raca, String sexo, Date nascimento) {
+    public Animal(Integer id, String nome, String raca, String sexo) {
         this.id = id;
         this.nome = nome;
         this.raca = raca;
         this.sexo = sexo;
-        this.nascimento = nascimento;
     }
 
     public Integer getId() {

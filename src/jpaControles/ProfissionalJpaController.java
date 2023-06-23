@@ -74,18 +74,6 @@ public class ProfissionalJpaController implements Serializable {
             Profissional persistentProfissional = em.find(Profissional.class, profissional.getId());
             Collection<Agendamento> agendamentoCollectionOld = persistentProfissional.getAgendamentoCollection();
             Collection<Agendamento> agendamentoCollectionNew = profissional.getAgendamentoCollection();
-            List<String> illegalOrphanMessages = null;
-            for (Agendamento agendamentoCollectionOldAgendamento : agendamentoCollectionOld) {
-                if (!agendamentoCollectionNew.contains(agendamentoCollectionOldAgendamento)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Agendamento " + agendamentoCollectionOldAgendamento + " since its profissionalId field is not nullable.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
             Collection<Agendamento> attachedAgendamentoCollectionNew = new ArrayList<Agendamento>();
             for (Agendamento agendamentoCollectionNewAgendamentoToAttach : agendamentoCollectionNew) {
                 agendamentoCollectionNewAgendamentoToAttach = em.getReference(agendamentoCollectionNewAgendamentoToAttach.getClass(), agendamentoCollectionNewAgendamentoToAttach.getId());
@@ -133,17 +121,6 @@ public class ProfissionalJpaController implements Serializable {
                 profissional.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The profissional with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            Collection<Agendamento> agendamentoCollectionOrphanCheck = profissional.getAgendamentoCollection();
-            for (Agendamento agendamentoCollectionOrphanCheckAgendamento : agendamentoCollectionOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Profissional (" + profissional + ") cannot be destroyed since the Agendamento " + agendamentoCollectionOrphanCheckAgendamento + " in its agendamentoCollection field has a non-nullable profissionalId field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(profissional);
             em.getTransaction().commit();

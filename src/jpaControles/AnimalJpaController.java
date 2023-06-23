@@ -86,18 +86,6 @@ public class AnimalJpaController implements Serializable {
             Pessoa proprietarioIdNew = animal.getProprietarioId();
             Collection<Agendamento> agendamentoCollectionOld = persistentAnimal.getAgendamentoCollection();
             Collection<Agendamento> agendamentoCollectionNew = animal.getAgendamentoCollection();
-            List<String> illegalOrphanMessages = null;
-            for (Agendamento agendamentoCollectionOldAgendamento : agendamentoCollectionOld) {
-                if (!agendamentoCollectionNew.contains(agendamentoCollectionOldAgendamento)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Agendamento " + agendamentoCollectionOldAgendamento + " since its animalId field is not nullable.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
             if (proprietarioIdNew != null) {
                 proprietarioIdNew = em.getReference(proprietarioIdNew.getClass(), proprietarioIdNew.getId());
                 animal.setProprietarioId(proprietarioIdNew);
@@ -157,17 +145,6 @@ public class AnimalJpaController implements Serializable {
                 animal.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The animal with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            Collection<Agendamento> agendamentoCollectionOrphanCheck = animal.getAgendamentoCollection();
-            for (Agendamento agendamentoCollectionOrphanCheckAgendamento : agendamentoCollectionOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Animal (" + animal + ") cannot be destroyed since the Agendamento " + agendamentoCollectionOrphanCheckAgendamento + " in its agendamentoCollection field has a non-nullable animalId field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             Pessoa proprietarioId = animal.getProprietarioId();
             if (proprietarioId != null) {

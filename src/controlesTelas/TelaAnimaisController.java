@@ -89,8 +89,14 @@ public class TelaAnimaisController implements Initializable {
                 break;
             case "nascimento":
                 column.setCellValueFactory(cellData -> {
+                   
                     Animal animal = cellData.getValue();
                     Date proprietario = animal.getNascimento();
+                    
+                     if(proprietario == null) {
+                        return new SimpleStringProperty("");
+                     }
+                     
                     String dataNascimento = new SimpleDateFormat("dd/MM/yyyy").format(proprietario);
                     return new SimpleStringProperty(dataNascimento);
                 });
