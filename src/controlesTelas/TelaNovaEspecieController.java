@@ -13,9 +13,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -43,10 +45,6 @@ public class TelaNovaEspecieController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
-    @FXML
-    private void onClickCancelButton(ActionEvent event) {
-    }
     
     void setEspecies(ObservableList<Especie> especies) {
         this.especies = especies;
@@ -59,6 +57,13 @@ public class TelaNovaEspecieController implements Initializable {
         }
         
         return true;
+    }
+    
+    @FXML
+    private void onClickCancelButton(ActionEvent event) {
+        Node node = (Node) event.getSource();
+        Stage thisStage = (Stage) node.getScene().getWindow();
+        thisStage.close();
     }
 
     @FXML
