@@ -65,7 +65,7 @@ public class TelaNovoProfissionalController implements Initializable {
     }
     
     private boolean validateInputs() {
-        if(textName.getText().equals("") || !textCodigo.getText().equals("")) {
+        if(textName.getText().equals("") || textCodigo.getText().equals("")) {
             errorLabel.setText("*Preencha os campos obrigatórios.");
             return false;
         }

@@ -32,20 +32,20 @@
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3">
                <children>
-                  <Label text="Nome" />
+                  <Label text="Nome*" />
                   <TextField fx:id="textNome" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.columnSpan="3">
                <children>
-                  <Label text="Raca" />
+                  <Label text="Raca*" />
                   <TextField fx:id="textRaca" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <children>
-                  <Label text="Sexo" />
-                  <TextField fx:id="textSexo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Sim" />
+                  <Label text="Sexo*" />
+                  <TextField fx:id="textSexo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
@@ -56,7 +56,7 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <children>
-                  <Label text="Nome do Dono" />
+                  <Label text="Nome do Dono*" />
                   <ComboBox fx:id="comboBoxDono" prefWidth="150.0" promptText="--" />
                </children>
             </VBox>

@@ -78,7 +78,7 @@ public class TelaNovoAgendamentoController implements Initializable {
     }
 
     private void setupComboBoxes() {
-        
+
         AnimaisDAO animalDao = new AnimaisDAO();
         ProfissionalDAO profissionalDao = new ProfissionalDAO();
         //ProcedimentoDAO procedimentoDao = new ProcedimentoDAO();
@@ -95,7 +95,7 @@ public class TelaNovoAgendamentoController implements Initializable {
             List<Procedimento> procedimentoList = procedimentoDao.findAllProcedimentos();
             procedimentos = FXCollections.observableArrayList(procedimentoList);
             comboBoxProcedimento.setItems(procedimentos);
-            
+
             TipoPagamento[] tipos = {TipoPagamento.CARTAO_CREDITO, TipoPagamento.CONVENIO, TipoPagamento.DEPOSITO, TipoPagamento.DINHEIRO};
             comboBoxPagamento.setItems(FXCollections.observableArrayList(Arrays.asList(tipos)));
         } catch (Exception e) {
@@ -108,42 +108,44 @@ public class TelaNovoAgendamentoController implements Initializable {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
-    
+
     private boolean validateInputs() {
-        if(comboBoxNomeAnimal.getValue() == null || comboBoxNomeProfissional.getValue() == null || comboBoxProcedimento.getValue() == null || datePicker.getValue() == null || comboBoxPagamento.getValue() == null) {
+        if (textValorCobrado.getText().equals("") || comboBoxNomeAnimal.getValue() == null || comboBoxNomeProfissional.getValue() == null || comboBoxProcedimento.getValue() == null || datePicker.getValue() == null || comboBoxPagamento.getValue() == null) {
             errorLabel.setText("*Preencha os campos obrigatórios.");
             return false;
         }
-        
-        try{
+
+        try {
             Integer.valueOf(textValorCobrado.getText());
-        }
-        catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             errorLabel.setText("Campo valor deve ser um número");
             return false;
         }
-        
-        try{
+
+        try {
             Integer.valueOf(textSessionNum.getText());
-        }
-        catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             errorLabel.setText("Campo número da sessão deve ser um número");
             return false;
         }
-        
+
         return true;
+    }
+
+    public void setAgendamentos(ObservableList<Agendamento> agendamentos) {
+        this.agendamentos = agendamentos;
     }
 
     @FXML
     private void onSubmit(ActionEvent event) throws Exception {
         boolean isInputValid = validateInputs();
-        
-        if(!isInputValid) {
+
+        if (!isInputValid) {
             return;
         }
-        
+
         String sessionNum = textSessionNum.getText();
-        String pagamento =  comboBoxPagamento.getValue().getTipo();
+        String pagamento = comboBoxPagamento.getValue().getTipo();
         LocalDate date = datePicker.getValue();
         Animal animal = comboBoxNomeAnimal.getValue();
         Profissional profissional = comboBoxNomeProfissional.getValue();
@@ -169,10 +171,11 @@ public class TelaNovoAgendamentoController implements Initializable {
         textValorCobrado.clear();
         comboBoxPagamento.setValue(null);
         errorLabel.setText("");
+        
+        List<Agendamento> results = agendamentoDao.findAllAgendamentos();
+        agendamentos.clear();
+        agendamentos.addAll(results);
 
     }
 
-    public void setAgendamentos(ObservableList<Agendamento> agendamentos) {
-        this.agendamentos = agendamentos;
-    }
 }

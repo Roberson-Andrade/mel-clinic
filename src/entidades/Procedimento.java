@@ -152,7 +152,7 @@ public class Procedimento implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Procedimento[ id=" + id + " ]";
+        return descricao;
     }
     
 }

@@ -68,7 +68,7 @@ public class TelaNovoClienteController implements Initializable {
     }
     
     private boolean validateInputs() {
-        if(textName.getText().equals("")) {
+        if(textName.getText().equals("") || textCpf.getText().equals("") || textRg.getText().equals("")) {
             errorLabel.setText("*Preencha os campos obrigatórios.");
             return false;
         }

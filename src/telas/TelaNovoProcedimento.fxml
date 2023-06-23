@@ -30,13 +30,13 @@
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2">
                <children>
-                  <Label text="Código" />
+                  <Label text="Código*" />
                   <TextField fx:id="textCodigo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="4">
                <children>
-                  <Label text="Descrição" />
+                  <Label text="Descrição*" />
                   <TextField fx:id="textDescricao" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                </children>
             </VBox>
@@ -53,7 +53,7 @@
                <children>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label text="Número de sessões" />
+                        <Label text="Número de sessões*" />
                         <TextField fx:id="textNumSessoes" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                      </children>
                   </VBox>
@@ -62,7 +62,7 @@
                <children>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label text="Valor" />
+                        <Label text="Valor*" />
                         <TextField fx:id="textValue" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                      </children>
                   </VBox>

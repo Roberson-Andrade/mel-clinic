@@ -75,7 +75,7 @@ public class TelaNovoAnimalController implements Initializable {
     }
     
     private boolean validateInputs() {
-        if(textNome.getText().equals("")) {
+        if(textRaca.getText().equals("") || textNome.getText().equals("") || textSexo.getText().equals("") || comboBoxDono.getValue() == null) {
             errorLabel.setText("*Preencha os campos obrigatórios.");
             return false;
         }

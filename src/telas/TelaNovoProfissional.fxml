@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -49,32 +48,8 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <children>
-                  <Label text="Codigo" />
+                  <Label text="Codigo*" />
                   <TextField fx:id="textCodigo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
-               <children>
-                  <Label text="Endereço" />
-                  <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
-               <children>
-                  <Label text="Cidade" />
-                  <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-               <children>
-                  <Label text="UF" />
-                  <ComboBox prefWidth="150.0" promptText="--" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2">
-               <children>
-                  <Label text="CEP" />
-                  <TextField />
                </children>
             </VBox>
          </children>
