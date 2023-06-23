@@ -40,7 +40,7 @@ public class TelaNovoClienteController implements Initializable {
     @FXML
     private TextField textCity;
     @FXML
-    private ComboBox<String> textUf;
+    private ComboBox<String> comboBoxUf;
     @FXML
     private TextField textCellphone;
     @FXML
@@ -60,7 +60,7 @@ public class TelaNovoClienteController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        textUf.setItems(UF.LISTA_UFS);
+        comboBoxUf.setItems(UF.LISTA_UFS);
     }
     
     public void setPessoas(ObservableList<Pessoa> pessoas) {
@@ -88,7 +88,7 @@ public class TelaNovoClienteController implements Initializable {
         String name = textName.getText();
         String address = textAddress.getText();
         String city = textCity.getText();
-        String uf = textUf.getValue();
+        String uf = comboBoxUf.getValue();
         String cellphone = textCellphone.getText();
         String rg = textRg.getText();
         Integer cep = Integer.valueOf(textCEP.getText());
