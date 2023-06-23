@@ -107,7 +107,7 @@ public class TelaProcedimentoRelatorioController implements Initializable {
             List<Agendamento> results = new ArrayList<>();
             
             if(tipo.equals(TipoRelatorioProcedimento.POR_ANIMAL)) {
-               results = agendamentoDao.findAllAgendamentosByAnimal(comboBoxProfissional.getValue().getId());
+               results = agendamentoDao.findAllAgendamentosByAnimal(comboBoxAnimal.getValue().getId());
             } else {
                 Month selectedMonth = comboBoxMes.getValue();
                 int selectedYear = comboBoxAno.getValue();
