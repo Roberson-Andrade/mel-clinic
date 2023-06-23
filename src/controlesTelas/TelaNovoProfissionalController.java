@@ -66,24 +66,17 @@ public class TelaNovoProfissionalController implements Initializable {
 
     @FXML
     private void onSubmit(ActionEvent event) throws Exception {
-//        @FXML
-//        private TextField textName;
-//        @FXML
-//        private TextField textCellphone;
-//        @FXML
-//        private TextField textEspecialidade;
-//        @FXML
-//        private TextField textCodigo;
 
         String name = textName.getText();
         String cellphone = textCellphone.getText();
         String especialidade = textEspecialidade.getText();
-        //String codigo = textCodigo.getText();
+        int codigo = Integer.parseInt(textCodigo.getText());
 
         Profissional novoProfissional = new Profissional();
         novoProfissional.setNome(name);
         novoProfissional.setTelefone(cellphone);
         novoProfissional.setEspecialidade(especialidade);
+        novoProfissional.setCodigo(codigo);
 
         profissionalDao.add(novoProfissional);
 

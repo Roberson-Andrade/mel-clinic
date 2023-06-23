@@ -96,9 +96,10 @@ public class TelaProfissionaisController implements Initializable {
         TableColumn<Profissional, String> profissionalNome = createTableColumn("Nome", 100, "nome");
         TableColumn<Profissional, String> profissionalTelefone = createTableColumn("Telefone", 100, "telefone");
         TableColumn<Profissional, String> profissionalEspecialidade = createTableColumn("Especialidade", 100, "especialidade");
+        TableColumn<Profissional, Integer> profissionalCodigo = createTableColumn("Código", 100, "codigo");
         TableColumn<Profissional, Void> buttonColumn = createProfissionalButtonColumn();
 
-        TableViewProfissionais.getColumns().addAll(profissionalNome, profissionalTelefone, profissionalEspecialidade, buttonColumn);
+        TableViewProfissionais.getColumns().addAll(profissionalNome, profissionalTelefone, profissionalEspecialidade, profissionalCodigo, buttonColumn);
         TableViewProfissionais.setItems(profissionais);
     }
 

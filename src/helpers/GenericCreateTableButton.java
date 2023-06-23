@@ -19,7 +19,7 @@ public class GenericCreateTableButton {
         TableColumn<T, Void> buttonColumn = new TableColumn<>("Action");
 
         buttonColumn.setCellFactory(param -> new TableCell<>() {
-            private final Button button = new Button("Click");
+            private final Button button = new Button("Excluir");
 
             {
                 button.setOnAction(event -> {
