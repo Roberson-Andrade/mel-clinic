@@ -59,7 +59,7 @@ public class Animal implements Serializable {
     @JoinColumn(name = "proprietarioId", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Pessoa proprietarioId;
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "animalId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "animalId")
     private Collection<Agendamento> agendamentoCollection;
 
     public Animal() {

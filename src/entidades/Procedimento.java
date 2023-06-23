@@ -56,7 +56,7 @@ public class Procedimento implements Serializable {
     @Basic(optional = false)
     @Column(name = "orientacoes")
     private String orientacoes;
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "procedimentoId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "procedimentoId")
     private Collection<Agendamento> agendamentoCollection;
 
     public Procedimento() {

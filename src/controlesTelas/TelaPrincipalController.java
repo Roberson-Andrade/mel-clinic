@@ -33,6 +33,8 @@ public class TelaPrincipalController implements Initializable {
     private Button botaoAnimais;
     @FXML
     private Button botaoProfissionais;
+    @FXML
+    private Button botaoEspecies;
 
     /**
      * Initializes the controller class.
@@ -63,10 +65,17 @@ public class TelaPrincipalController implements Initializable {
     }
 
     @FXML
-    private void onClickBotaoProfissionais(ActionEvent event) throws IOException{
+    private void onClickBotaoProfissionais(ActionEvent event) throws IOException {
         AnchorPane profissionaisView = FXMLLoader.load(getClass().getResource(ScenePath.PROFISSIONAIS.getPath()));
         
         container.setCenter(profissionaisView);
+    }
+
+    @FXML
+    private void onClickBotaoEspecies(ActionEvent event) throws IOException {
+         AnchorPane especiesView = FXMLLoader.load(getClass().getResource(ScenePath.ESPECIES.getPath()));
+        
+        container.setCenter(especiesView);
     }
     
 }

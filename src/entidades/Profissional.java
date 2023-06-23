@@ -49,7 +49,7 @@ public class Profissional implements Serializable {
     private String telefone;
     @Column(name = "especialidade")
     private String especialidade;
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "profissionalId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "profissionalId")
     private Collection<Agendamento> agendamentoCollection;
 
     public Profissional() {

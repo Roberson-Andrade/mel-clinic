@@ -74,7 +74,7 @@ public class TelaNovoAnimalController implements Initializable {
         }
     }
     
-        private boolean validateInputs() {
+    private boolean validateInputs() {
         if(textNome.getText().equals("")) {
             errorLabel.setText("*Preencha os campos obrigatórios.");
             return false;
@@ -143,8 +143,6 @@ public class TelaNovoAnimalController implements Initializable {
         List<Animal> results = animalDao.findAllAnimais();
         animais.clear();
         animais.addAll(results);
-        
-
     }
 
 }

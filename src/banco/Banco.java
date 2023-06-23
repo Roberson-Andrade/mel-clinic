@@ -1,4 +1,4 @@
-package banco;
+    package banco;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,7 +42,6 @@ public class Banco {
         
         try {
             Statement sessao = conexao.createStatement();
-            sessao.executeUpdate("DROP DATABASE " + this.database + ";"); 
             sessao.executeUpdate("CREATE DATABASE " + this.database + ";"); 
             sessao.executeUpdate("USE db;");  
             
