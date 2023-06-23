@@ -7,17 +7,17 @@ package controlesTelas;
 import DAO.AgendamentoDAO;
 import DAO.AnimaisDAO;
 import DAO.ProfissionalDAO;
-//import DAO.ProcedimentoDAO;
+import DAO.ProcedimentoDAO;
 import entidades.Agendamento;
 import entidades.Animal;
 import entidades.Profissional;
 import entidades.Procedimento;
-import helpers.ScenePath;
+import helpers.TipoPagamento;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -65,8 +65,9 @@ public class TelaNovoAgendamentoController implements Initializable {
     private ObservableList<Agendamento> agendamentos;
 
     private final AgendamentoDAO agendamentoDao = new AgendamentoDAO();
+    private final ProcedimentoDAO procedimentoDao = new ProcedimentoDAO();
     @FXML
-    private ComboBox<?> comboBoxPagamento;
+    private ComboBox<TipoPagamento> comboBoxPagamento;
 
     /**
      * Initializes the controller class.
@@ -77,6 +78,7 @@ public class TelaNovoAgendamentoController implements Initializable {
     }
 
     private void setupComboBoxes() {
+        
         AnimaisDAO animalDao = new AnimaisDAO();
         ProfissionalDAO profissionalDao = new ProfissionalDAO();
         //ProcedimentoDAO procedimentoDao = new ProcedimentoDAO();
@@ -90,9 +92,12 @@ public class TelaNovoAgendamentoController implements Initializable {
             profissionais = FXCollections.observableArrayList(profissionalList);
             comboBoxNomeProfissional.setItems(profissionais);
 
-            //List<Procedimento> procedimentoList = procedimentoDao.findAllProcedimentos();
-            //procedimentos = FXCollections.observableArrayList(procedimentoList);
-            //comboBoxProcedimento.setItems(procedimentos);
+            List<Procedimento> procedimentoList = procedimentoDao.findAllProcedimentos();
+            procedimentos = FXCollections.observableArrayList(procedimentoList);
+            comboBoxProcedimento.setItems(procedimentos);
+            
+            TipoPagamento[] tipos = {TipoPagamento.CARTAO_CREDITO, TipoPagamento.CONVENIO, TipoPagamento.DEPOSITO, TipoPagamento.DINHEIRO};
+            comboBoxPagamento.setItems(FXCollections.observableArrayList(Arrays.asList(tipos)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,11 +108,42 @@ public class TelaNovoAgendamentoController implements Initializable {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
+    
+    private boolean validateInputs() {
+        if(comboBoxNomeAnimal.getValue() == null || comboBoxNomeProfissional.getValue() == null || comboBoxProcedimento.getValue() == null || datePicker.getValue() == null || comboBoxPagamento.getValue() == null) {
+            errorLabel.setText("*Preencha os campos obrigatórios.");
+            return false;
+        }
+        
+        try{
+            Integer.valueOf(textValorCobrado.getText());
+        }
+        catch (NumberFormatException ex){
+            errorLabel.setText("Campo valor deve ser um número");
+            return false;
+        }
+        
+        try{
+            Integer.valueOf(textSessionNum.getText());
+        }
+        catch (NumberFormatException ex){
+            errorLabel.setText("Campo número da sessão deve ser um número");
+            return false;
+        }
+        
+        return true;
+    }
 
     @FXML
     private void onSubmit(ActionEvent event) throws Exception {
+        boolean isInputValid = validateInputs();
+        
+        if(!isInputValid) {
+            return;
+        }
+        
         String sessionNum = textSessionNum.getText();
-        String pagamento = (String) comboBoxPagamento.getValue();
+        String pagamento =  comboBoxPagamento.getValue().getTipo();
         LocalDate date = datePicker.getValue();
         Animal animal = comboBoxNomeAnimal.getValue();
         Profissional profissional = comboBoxNomeProfissional.getValue();
@@ -134,22 +170,6 @@ public class TelaNovoAgendamentoController implements Initializable {
         comboBoxPagamento.setValue(null);
         errorLabel.setText("");
 
-    }
-
-    private boolean validateFields(String sessionNum, String codigo, LocalDate date, Animal animal, Profissional profissional, Procedimento procedimento, String valorCobrado) {
-        if (sessionNum.isEmpty() || codigo.isEmpty() || date == null || animal == null || profissional == null || procedimento == null || valorCobrado.isEmpty()) {
-            errorLabel.setText("Preencha todos os campos.");
-            return false;
-        }
-
-        try {
-            Double.valueOf(valorCobrado);
-        } catch (NumberFormatException e) {
-            errorLabel.setText("Valor cobrado inválido.");
-            return false;
-        }
-
-        return true;
     }
 
     public void setAgendamentos(ObservableList<Agendamento> agendamentos) {

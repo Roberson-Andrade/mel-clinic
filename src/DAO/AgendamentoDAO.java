@@ -5,9 +5,12 @@
 package DAO;
 
 import entidades.Agendamento;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import jpaControles.AgendamentoJpaController;
 
 /**
@@ -38,6 +41,27 @@ public class AgendamentoDAO {
 
     public List<Agendamento> findAllAgendamentos() throws Exception {
         return objetoJPA.findAgendamentoEntities();
+    }
+    
+    public List<Agendamento> findAllAgendamentosByDate(Date date) throws Exception {
+        EntityManager em = null;
+        
+        try {
+            em = emf.createEntityManager();
+            Query query = em.createNamedQuery("Agendamento.findByDataAgendamento");
+            query.setParameter("dataAgendamento", date);
+            List<Agendamento> resultados = query.getResultList();
+            
+            if (!resultados.isEmpty()) {
+                return resultados;
+            } else {
+                return null;
+            }
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
     }
 }
 

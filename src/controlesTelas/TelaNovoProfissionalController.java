@@ -63,9 +63,31 @@ public class TelaNovoProfissionalController implements Initializable {
         Stage thisStage = (Stage) node.getScene().getWindow();
         thisStage.close();
     }
+    
+    private boolean validateInputs() {
+        if(textName.getText().equals("") || !textCodigo.getText().equals("")) {
+            errorLabel.setText("*Preencha os campos obrigatórios.");
+            return false;
+        }
+        
+        try{
+            Integer.valueOf(textCodigo.getText());
+        }
+        catch (NumberFormatException ex){
+            errorLabel.setText("Campo codigo deve ser um número");
+            return false;
+        }
+        
+        return true;
+    }
 
     @FXML
     private void onSubmit(ActionEvent event) throws Exception {
+        boolean isInputValid = validateInputs();
+        
+        if(!isInputValid) {
+            return;
+        }
 
         String name = textName.getText();
         String cellphone = textCellphone.getText();
@@ -74,10 +96,16 @@ public class TelaNovoProfissionalController implements Initializable {
 
         Profissional novoProfissional = new Profissional();
         novoProfissional.setNome(name);
-        novoProfissional.setTelefone(cellphone);
-        novoProfissional.setEspecialidade(especialidade);
         novoProfissional.setCodigo(codigo);
-
+        
+        if(!cellphone.equals("")) {
+            novoProfissional.setTelefone(cellphone);
+        }
+        
+        if(!especialidade.equals("")) {
+            novoProfissional.setEspecialidade(especialidade);
+        }
+        
         profissionalDao.add(novoProfissional);
 
         textName.setText("");

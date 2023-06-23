@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlesTelas.TelaAgendamentoRelatorioController">
+    <children>
+        <TableView fx:id="TableViewAgendamentoRelatorio" layoutX="100.0" layoutY="79.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="79.0">
+            <placeholder>
+                <Label text="Selecione um tipo de relatório" />
+            </placeholder>
+        </TableView>
+      <ComboBox fx:id="comboBoxTipoRelatorio" layoutX="50.0" layoutY="31.0" onAction="#onChangeTipoRelatorio" prefWidth="150.0" promptText="Selecione" />
+    </children>
+</AnchorPane>

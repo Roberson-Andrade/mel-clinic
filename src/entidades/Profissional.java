@@ -135,7 +135,7 @@ public class Profissional implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Profissional[ id=" + id + " ]";
+        return nome;
     }
     
 }

@@ -122,7 +122,7 @@ public class TelaNovoAnimalController implements Initializable {
         novoAnimal.setNome(name);
         
         if(!raca.equals("")) {
-             novoAnimal.setRaca(raca);
+            novoAnimal.setRaca(raca);
         }
         
         novoAnimal.setSexo(sexo);

@@ -87,7 +87,7 @@ public class Especie implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Especie[ id=" + id + " ]";
+        return nome;
     }
     
 }
