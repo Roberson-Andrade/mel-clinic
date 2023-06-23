@@ -43,7 +43,7 @@ public class TelaPrincipalController implements Initializable {
 
     @FXML
     private void onClickBotaoAgenda(ActionEvent event) throws IOException {
-        AnchorPane agendaView = FXMLLoader.load(getClass().getResource(ScenePath.AGENDA.getPath()));
+        AnchorPane agendaView = FXMLLoader.load(getClass().getResource(ScenePath.AGENDAMENTOS.getPath()));
         
         container.setCenter(agendaView);
     }
