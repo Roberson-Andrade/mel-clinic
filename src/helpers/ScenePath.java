@@ -20,7 +20,9 @@ public enum ScenePath {
     ESPECIES("/telas/TelaEspecies.fxml"),
     NOVA_ESPECIE("/telas/TelaNovaEspecie.fxml"),
     AGENDAMENTOS("/telas/TelaAgendamentos.fxml"),
-    NOVO_AGENDAMENTO("/telas/TelaNovoAgendamento.fxml");
+    NOVO_AGENDAMENTO("/telas/TelaNovoAgendamento.fxml"),
+    PROCEDIMENTOS("/telas/TelaProcedimentos.fxml"),
+    NOVO_PROCEDIMENTO("/telas/TelaNovoProcedimento.fxml");
     
 
     private final String path;

@@ -127,6 +127,7 @@ public class TelaNovoClienteController implements Initializable {
         errorLabel.setText("");
         textRg.setText("");
         textCpf.setText("");
+        textCEP.setText("");
         
         List<Pessoa> results = pessoaDao.findAllPessoas();
         
