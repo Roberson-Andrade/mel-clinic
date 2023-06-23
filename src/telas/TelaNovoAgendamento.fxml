@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlesTelas.TelaNovoClienteController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlesTelas.TelaNovoAgendamentoController">
    <children>
       <GridPane hgap="8.0" layoutX="78.0" layoutY="94.0" prefHeight="212.0" prefWidth="408.0" vgap="8.0" AnchorPane.bottomAnchor="94.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="94.0">
         <columnConstraints>
@@ -29,57 +30,57 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3">
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2">
                <children>
-                  <Label text="Nome*" />
-                  <TextField fx:id="textName" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+                  <Label text="Nome Animal" />
+                  <ComboBox fx:id="comboBoxNomeAnimal" prefWidth="150.0" />
                </children>
             </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.columnSpan="3">
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.columnSpan="2">
                <children>
-                  <Label text="Telefone" />
-                  <TextField fx:id="textCellphone" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+                  <Label text="Nome Profissional" />
+                  <ComboBox fx:id="comboBoxNomeProfissional" prefWidth="150.0" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <children>
-                  <Label text="CPF" />
-                  <TextField fx:id="textCpf" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+                  <Label text="Numero da Sessao" />
+                  <TextField fx:id="textSessionNum" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <children>
-                  <Label text="RG" />
-                  <TextField fx:id="textRg" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+                  <Label text="Procedimento" />
+                  <ComboBox fx:id="comboBoxProcedimento" prefWidth="150.0" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <children>
-                  <Label text="Endereço" />
-                  <TextField fx:id="textAddress" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+                  <Label text="Data" />
+                  <DatePicker fx:id="datePicker" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <children>
-                  <Label text="Cidade" />
-                  <TextField fx:id="textCity" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+                  <Label text="Valor Cobrado" />
+                  <TextField fx:id="textValorCobrado" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
-                  <Label text="UF" />
-                  <ComboBox fx:id="comboBoxUf" prefWidth="150.0" promptText="--" />
+                  <Label text="Pagamento" />
+                  <ComboBox fx:id="comboBoxPagamento" prefWidth="150.0" promptText="--" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <children>
-                  <Label text="CEP" />
-                  <TextField fx:id="textCEP" />
+                  <Label text="Data" />
+                  <DatePicker />
                </children>
             </VBox>
          </children>
       </GridPane>
-      <Text layoutX="21.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Novo cliente" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <Text layoutX="21.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Novo Agendamento" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font size="24.0" />
          </font>
